@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML5 Video Demo Using popcorn.js</title>
+  <meta charset="UTF-8" />
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="../../popcorn.js"></script>
+
+  <script src="../../modules/popcorn.ramp.bubblewrap.js"></script>
+  <script src="../../plugins/footnote/popcorn.footnote.js"></script>
+
+
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+			document.addEventListener("DOMContentLoaded", function(){
+
+                var pop = Popcorn("#ourvideo");
+
+				pop.listen("footnote_start", function(args) {
+					console.log(args);
+					
+					args[1].text = "changed text with interceptor";
+				});
+				
+                pop.footnote({
+                    start: 1,
+                    end: 2,
+                    text: "Here",
+                    target: "footnotediv"
+                });
+
+				pop.footnote({
+                    start: 2,
+                    end: 6,
+                    text: "Pop!",
+                    target: "footnotediv"
+                });
+
+                pop.play();
+
+            }, false);
+  </script>
+</head>
+
+<body>
+  	<h1>Popcorn</h1>
+	        <video height="180" width="300" id="ourvideo">
+	            <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.mp4">
+	            </source>
+	            <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.ogv">
+	            </source>
+	            <source src="http://videos.mozilla.org/serv/webmademovies/popcornplug.webm">
+	            </source>
+			</video>
+	<div id="footnotediv">
+	</div>
+<body>
+</html>
