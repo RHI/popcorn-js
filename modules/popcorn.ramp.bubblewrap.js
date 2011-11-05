@@ -3,8 +3,9 @@ if (Popcorn) {
                 //intercept all existing plugins
                 var instances = new Array(Popcorn.instances);
                 for (var i=0; i < instances.length; i++) {
-                    var inst = Popcorn.instances[i];
-                                         
+					console.log(instances);
+                    var inst = instances[i];
+                    console.log(inst);
                     inst.bubbleWrap = {};
                     inst.bubbleWrap.createObserver = function(plugin,evt_name) {
                         
@@ -13,9 +14,10 @@ if (Popcorn) {
                        
 			if (!plugin._bubblewrap) {          
   	                      plugin[evt_name] = function(a,b) { 
-        	                    this.trigger(name + "_" + evt_name, [a,b]);
+        	                
+                	            console.log("TRIGGER - " + name + "_" + evt_name, a, b);
+    							this.trigger(name + "_" + evt_name, [a,b]);
                             
-                	            console.log("TRIGGER - " + name + "_" + evt_name);
                         	    old_fn(a,b);
                        	 	};
 				plugin.bubblewrap = true;
@@ -33,7 +35,7 @@ if (Popcorn) {
                     }
                     
                     //this will capture plugins already loaded
-                    var trackEvents = inst.getTrackEvents();
+                   	var trackEvents = inst.getTrackEvents();
                     for (var it=0; it < trackEvents.length; it++) {
                         inst.bubbleWrap.createObserver(trackEvents[it]._natives,"start");
                         inst.bubbleWrap.createObserver(trackEvents[it]._natives,"end");  
